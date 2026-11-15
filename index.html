@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ong Kai Peng — Cybersecurity & Digital Forensics</title>
+<meta name="description" content="Ong Kai Peng — Cybersecurity & Digital Forensics student at Republic Polytechnic. Security operations, digital forensics and cloud security.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f14; --panel:#111821; --line:#1f2a36; --text:#d7dee7; --muted:#8a97a6;
+    --accent:#3ddc97; --accent2:#5ab0ff;
+    --mono:'JetBrains Mono',ui-monospace,monospace; --sans:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;font-size:16px}
+  a{color:var(--accent2);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+
+  nav{position:sticky;top:0;z-index:10;background:rgba(11,15,20,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:56px}
+  nav .brand{font-family:var(--mono);color:var(--accent);font-weight:600}
+  nav ul{display:flex;gap:22px;list-style:none}
+  nav ul a{color:var(--muted);font-size:14px} nav ul a:hover{color:var(--text);text-decoration:none}
+  @media(max-width:720px){nav ul{display:none}}
+
+  header{padding:96px 0 72px;border-bottom:1px solid var(--line)}
+  .prompt{font-family:var(--mono);color:var(--muted);font-size:14px;margin-bottom:18px}
+  .prompt b{color:var(--accent);font-weight:400}
+  .cursor{display:inline-block;width:9px;height:17px;background:var(--accent);vertical-align:-3px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  h1{font-size:clamp(38px,6vw,60px);line-height:1.1;font-weight:700;letter-spacing:-.02em}
+  .role{font-size:clamp(18px,2.4vw,22px);color:var(--muted);margin-top:12px}
+  .role span{color:var(--accent)}
+  .intro{max-width:680px;margin-top:24px;color:#b8c3cf}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px}
+  .btn{font-family:var(--mono);font-size:14px;padding:10px 18px;border:1px solid var(--accent);color:var(--accent);border-radius:6px}
+  .btn.solid{background:var(--accent);color:#06130d}
+  .btn:hover{text-decoration:none;opacity:.88}
+  .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px}
+  .tag{font-family:var(--mono);font-size:12px;color:var(--muted);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+
+  section{padding:72px 0;border-bottom:1px solid var(--line)}
+  h2{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:28px}
+  h2::before{content:"// ";color:var(--muted)}
+
+  .item{display:grid;grid-template-columns:150px 1fr;gap:24px;padding:20px 0;border-top:1px solid var(--line)}
+  .item:first-of-type{border-top:none;padding-top:0}
+  .when{font-family:var(--mono);font-size:13px;color:var(--muted);padding-top:3px}
+  .item h3{font-size:18px;font-weight:600}
+  .item .sub{color:var(--accent2);font-size:15px;margin-bottom:8px}
+  .item ul{padding-left:18px;color:#b8c3cf}
+  .item li{margin:4px 0}
+  .pill{display:inline-block;font-family:var(--mono);font-size:12px;background:rgba(61,220,151,.1);color:var(--accent);padding:2px 8px;border-radius:4px;margin:6px 6px 0 0}
+  @media(max-width:640px){.item{grid-template-columns:1fr;gap:4px}}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px}
+  .card h3{font-size:15px;font-weight:600;margin-bottom:12px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-family:var(--mono);font-size:12px;border:1px solid var(--line);color:#c4cdd8;padding:3px 9px;border-radius:5px}
+  .card p{color:#b8c3cf;font-size:14px}
+  .card .org{color:var(--muted);font-size:13px;margin-top:6px}
+
+  .certs{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+  .certs li{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent2);border-radius:6px;padding:12px 14px;font-size:14px}
+  .certs li span{display:block;color:var(--muted);font-size:12px;font-family:var(--mono);margin-top:2px}
+
+  #contact{text-align:center;border-bottom:none}
+  #contact h2{display:inline-block}
+  #contact p{color:#b8c3cf;max-width:520px;margin:0 auto 28px}
+  #contact .cta{justify-content:center}
+  footer{text-align:center;padding:28px 0 40px;color:var(--muted);font-family:var(--mono);font-size:12px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">kaipeng@sg:~$</span>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#ctf">CTFs</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header id="about">
+  <div class="wrap">
+    <p class="prompt"><b>$</b> whoami <span class="cursor"></span></p>
+    <h1>Ong Kai Peng</h1>
+    <p class="role">Cybersecurity &amp; Digital Forensics <span>@ Republic Polytechnic</span></p>
+    <p class="intro">I'm a cybersecurity student with hands-on experience in network security, vulnerability assessment, security monitoring and digital forensics from academic labs and projects. I'm looking for an internship in Security Operations, Digital Forensics or Cloud Security, and I'm open to other areas of cybersecurity and IT too.</p>
+    <div class="cta">
+      <a class="btn solid" href="mailto:kaipeng.ong11.05.07@gmail.com">Get in touch</a>
+      <a class="btn" href="https://www.linkedin.com/in/kaipengong" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+    </div>
+    <div class="tags">
+      <span class="tag">Security Operations</span>
+      <span class="tag">Digital Forensics</span>
+      <span class="tag">Cloud Security</span>
+      <span class="tag">GPA 3.69 / 4.00</span>
+      <span class="tag">Singapore</span>
+    </div>
+  </div>
+</header>
+
+<section id="education">
+  <div class="wrap">
+    <h2>Education</h2>
+
+    <div class="item">
+      <div class="when">2025 – Present</div>
+      <div>
+        <h3>Republic Polytechnic</h3>
+        <p class="sub">Diploma in Cybersecurity &amp; Digital Forensics · GPA 3.69 / 4.00</p>
+        <ul>
+          <li>Director's Roll of Honour, AY2025 Semester 2</li>
+          <li>Edusave Certificate of Academic Achievement 2026</li>
+        </ul>
+        <span class="pill">Ethical Hacking</span><span class="pill">Digital Forensics</span><span class="pill">Network Security</span><span class="pill">Cloud Security</span><span class="pill">Incident Response</span>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="when">2024 – 2025</div>
+      <div>
+        <h3>Republic Polytechnic — Centre for Foundational Studies</h3>
+        <p class="sub">Polytechnic Foundation Programme (PFP)</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="when">2020 – 2023</div>
+      <div>
+        <h3>Holy Innocents' High School</h3>
+        <p class="sub">GCE "N(A)" Level</p>
+        <ul>
+          <li>6 GCE "N(A)" Level passes · 1 GCE "O" Level pass</li>
+          <li>Edusave Award for Achievement, Good Leadership and Service (EAGLES) 2023</li>
+          <li>Edusave Certificate of Academic Achievement 2021</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Technical Skills</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Cybersecurity &amp; Network Security</h3>
+        <div class="chips">
+          <span class="chip">Nmap</span><span class="chip">Metasploit</span><span class="chip">OpenVAS (GVM)</span><span class="chip">Snort</span>
+          <span class="chip">Reconnaissance</span><span class="chip">Port scanning</span><span class="chip">Service enumeration</span>
+          <span class="chip">Vulnerability assessment</span><span class="chip">Pentest fundamentals</span>
+          <span class="chip">Traffic analysis</span><span class="chip">Intrusion detection</span><span class="chip">PCAP analysis</span><span class="chip">TCP/IP</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Digital Forensics &amp; Investigation</h3>
+        <div class="chips">
+          <span class="chip">Talon ULTIMATE</span><span class="chip">FTK Imager</span><span class="chip">Autopsy</span>
+          <span class="chip">Disk imaging</span><span class="chip">MD5 integrity checks</span><span class="chip">E01 images</span>
+          <span class="chip">Chain of custody</span><span class="chip">Registry analysis</span><span class="chip">Event Log analysis</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Cloud Computing</h3>
+        <div class="chips">
+          <span class="chip">AWS</span><span class="chip">Amazon VPC</span><span class="chip">Cloud networking</span><span class="chip">Service selection &amp; deployment</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Programming &amp; Scripting</h3>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">JavaScript (Node.js)</span><span class="chip">SQL</span><span class="chip">PowerShell</span><span class="chip">Bash</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Operating Systems &amp; Virtualisation</h3>
+        <div class="chips">
+          <span class="chip">Kali Linux</span><span class="chip">Ubuntu</span><span class="chip">Windows 10</span><span class="chip">Windows Server</span>
+          <span class="chip">VMware Workstation</span><span class="chip">Docker</span><span class="chip">Linux CLI</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>System Administration &amp; Networking</h3>
+        <div class="chips">
+          <span class="chip">Active Directory</span><span class="chip">Group Policy</span><span class="chip">Event Viewer</span>
+          <span class="chip">User &amp; access management</span><span class="chip">Network troubleshooting</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ctf">
+  <div class="wrap">
+    <h2>Events &amp; Competitions</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>WHITEHACKS 2026 — Capture The Flag</h3>
+        <p>Took part in the CTF competition and worked through practical cybersecurity challenges that tested problem-solving and technical skills.</p>
+        <p class="org">Singapore Management University (SMU)</p>
+      </div>
+      <div class="card">
+        <h3>CDDC 2026 — BrainHack: Beyond The Edge</h3>
+        <p>Competed in the virtual CTF qualifier, with challenges in web security, reverse engineering and steganography.</p>
+        <p class="org">Defence Science and Technology Agency (DSTA)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <h2>Certifications</h2>
+    <ul class="certs">
+      <li>Get Started with Linux Fundamentals (RH104 – RHA) v9.1<span>Red Hat</span></li>
+      <li>AWS Academy Graduate — Cloud Foundations<span>Amazon Web Services</span></li>
+      <li>Networking Basics<span>Cisco Networking Academy</span></li>
+      <li>Computer Hardware Basics<span>Cisco Networking Academy</span></li>
+      <li>Certified Entry-Level Python Programmer PCEP-30-02 Prep<span>LinkedIn Learning</span></li>
+      <li>Python Essential Training<span>LinkedIn Learning</span></li>
+      <li>JavaScript: Web Form Programming<span>LinkedIn Learning</span></li>
+      <li>Fundamentals of Sustainability and Technology<span>IBM</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <h2>Work Experience</h2>
+
+    <div class="item">
+      <div class="when">2024 – Present</div>
+      <div>
+        <h3>Freelance Photographer</h3>
+        <p class="sub">Self-Employed</p>
+        <ul>
+          <li>Photograph automotive showcases, lifestyle shoots, corporate events and luxury watch events for clients.</li>
+          <li>Handle the full workflow: planning, shooting, photo selection and post-processing.</li>
+          <li>Work with clients to understand their requirements and deliver to their expectations.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="when">2023 – Present</div>
+      <div>
+        <h3>Little Farms</h3>
+        <p class="sub">Sales Associate</p>
+        <ul>
+          <li>Serve customers in a premium grocery and dining environment.</li>
+          <li>Help shoppers with product questions, keep the store presentable and handle point-of-sale transactions.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="when">2024 – 2025</div>
+      <div>
+        <h3>Restaurant JAG</h3>
+        <p class="sub">Fine Dining Service Crew · Michelin-starred</p>
+        <ul>
+          <li>Provided professional table service in a Michelin-starred fine dining restaurant.</li>
+          <li>Worked high-profile events including the Formula 1 Singapore Grand Prix 2024, a Longchamp private event, a Breitling corporate event, a Shipowners' P&amp;I Association event and the STPI art showcase 2024.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="when">2024 – 2025</div>
+      <div>
+        <h3>Shangri-La Hotel Singapore</h3>
+        <p class="sub">Banquet Service Staff</p>
+        <ul>
+          <li>Supported "Beyond 2025: The Changing World Order", a high-profile event hosted by Bank of Singapore.</li>
+          <li>Worked banquet operations for weddings, corporate functions and large-scale events.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="when">2022</div>
+      <div>
+        <h3>MOS Burger Singapore</h3>
+        <p class="sub">Part-Time Service Crew</p>
+        <ul>
+          <li>Took orders, prepared food and kept up cleanliness standards in a fast-paced quick-service restaurant.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="beyond">
+  <div class="wrap">
+    <h2>Volunteering &amp; Activities</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Digital Literacy Volunteer</h3>
+        <p>Taught seniors to use their mobile phones step by step, and covered basic safety such as privacy, passwords and spotting scams.</p>
+        <p class="org">Vanguard Healthcare · 2025</p>
+      </div>
+      <div class="card">
+        <h3>Community Volunteer</h3>
+        <p>Paired with a local family to provide companionship and support at the Yishun National Day Celebration 2025, and helped host activities.</p>
+        <p class="org">People's Association, Marsiling · 2025</p>
+      </div>
+      <div class="card">
+        <h3>Student Council</h3>
+        <p>Help plan and coordinate student events and initiatives.</p>
+        <p class="org">Republic Polytechnic · 2025 – Present</p>
+      </div>
+      <div class="card">
+        <h3>National Youth Achievement Award</h3>
+        <p>Currently doing the NYAA programme, which covers community service, outdoor experiences, skills development and physical recreation.</p>
+        <p class="org">2025 – Present</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p>I'm open to internships in cybersecurity and IT. Feel free to reach out.</p>
+    <div class="cta">
+      <a class="btn solid" href="mailto:kaipeng.ong11.05.07@gmail.com">kaipeng.ong11.05.07@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/kaipengong" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>© <span id="y"></span> Ong Kai Peng · Built with HTML, hosted on Vercel</footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>
