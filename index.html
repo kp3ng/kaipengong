@@ -116,12 +116,80 @@
   #contact .cta{justify-content:center}
   footer{text-align:center;padding:28px 0 40px;color:var(--muted);font-family:var(--mono);font-size:12px}
 
-  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
-  .reveal.show{opacity:1;transform:none}
-  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.cursor{animation:none}}
+  .reveal{opacity:0;translate:0 18px;transition:opacity .6s ease var(--d,0s),translate .6s ease var(--d,0s),transform .2s ease,border-color .2s,box-shadow .2s}
+  .reveal.show{opacity:1;translate:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;translate:none;transition:none}.cursor{animation:none}}
+
+  /* ===== animations & interactions ===== */
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:50;box-shadow:0 0 10px var(--accent)}
+  .note{color:var(--muted);font-size:14px;margin:-18px 0 24px}
+  /* hero intro */
+  .hero .intro{opacity:0;transform:translateY(18px);animation:up .7s ease forwards}
+  .hero .intro:nth-child(1){animation-delay:.05s}.hero .intro:nth-child(2){animation-delay:.15s}
+  .hero .intro:nth-child(3){animation-delay:.25s}.hero .intro:nth-child(4){animation-delay:.35s}.hero .intro:nth-child(5){animation-delay:.45s}
+  @keyframes up{to{opacity:1;transform:none}}
+  .photo{opacity:0;animation:pop .9s cubic-bezier(.2,.8,.2,1) .2s forwards}
+  .photo img{animation:float 6s ease-in-out 1.2s infinite}
+  .photo::before{animation:spin 8s linear infinite}
+  @keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .hero{position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;opacity:.35;mask-image:radial-gradient(ellipse at 70% 40%,#000 0%,transparent 70%);animation:grid 20s linear infinite;pointer-events:none}
+  @keyframes grid{to{background-position:44px 44px}}
+  .hero .wrap{position:relative}
+  /* buttons: press + ripple */
+  .btn{position:relative;overflow:hidden;transition:transform .15s,box-shadow .2s,background .2s}
+  .btn:hover{box-shadow:0 6px 20px rgba(61,220,151,.25)}
+  .btn:active{transform:scale(.95)}
+  .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.45);transform:scale(0);animation:ripple .6s ease-out;pointer-events:none}
+  @keyframes ripple{to{transform:scale(4);opacity:0}}
+  /* cards */
+  .card:hover,.edu:hover{transform:translateY(-4px);border-color:rgba(61,220,151,.45);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .card:active{transform:scale(.98)}
+  .chip{transition:.15s}.chip:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+  /* reveal variants with stagger */
+  .reveal.left{translate:-28px 0}.reveal.right{translate:28px 0}
+  .reveal.left.show,.reveal.right.show{translate:none}
+  /* timeline draw */
+  .tl{border-left:none;position:relative}
+  .tl::before{content:"";position:absolute;left:0;top:0;width:2px;height:0;background:linear-gradient(var(--accent),var(--line));transition:height 1.4s ease}
+  .tl.show::before{height:100%}
+  .tl-item::before{left:-31px;transform:scale(0);transition:transform .4s ease .3s}
+  .tl.show .tl-item::before{transform:scale(1);animation:pulse 2.4s ease-out 1s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(61,220,151,.5)}70%{box-shadow:0 0 0 10px rgba(61,220,151,0)}100%{box-shadow:0 0 0 0 rgba(61,220,151,0)}}
+  /* certs */
+  .cert-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;overflow:hidden}
+  .cert-main{display:block;padding:22px;color:inherit;flex:1;position:relative}
+  .cert-main:hover{text-decoration:none}
+  .cert-card:hover{transform:translateY(-5px);border-color:var(--accent2);box-shadow:0 12px 30px rgba(90,176,255,.15)}
+  .cert-card:active{transform:scale(.97)}
+  .cert-date{font-family:var(--mono);font-size:12px;color:var(--accent)}
+  .cert-card h3{font-size:16px;font-weight:600;margin:6px 0 4px;color:var(--text)}
+  .cert-card .issuer{color:var(--muted);font-size:14px}
+  .open{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:13px;color:var(--accent2)}
+  .open .arr{display:inline-block;transition:transform .2s}
+  .cert-card:hover .arr{transform:translate(3px,-3px)}
+  .verify{display:block;border-top:1px solid var(--line);padding:10px 22px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .verify:hover{color:var(--accent);text-decoration:none;background:var(--panel2)}
+  .pdf-link{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:13px}
+  /* nav active */
+  nav ul a{position:relative}
+  nav ul a.active{color:var(--accent)}
+  nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--accent);transition:width .25s}
+  nav ul a:hover::after,nav ul a.active::after{width:100%}
+  @media(max-width:860px){nav ul a::after{display:none}}
+  /* back to top */
+  .top{position:fixed;right:20px;bottom:20px;width:44px;height:44px;border-radius:50%;border:1px solid var(--accent);background:var(--panel);color:var(--accent);font-size:18px;cursor:pointer;opacity:0;transform:translateY(20px);transition:.25s;z-index:30}
+  .top.show{opacity:1;transform:none}
+  .top:hover{background:var(--accent);color:#06130d}
+  .top:active{transform:scale(.9)}
+  @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.hero .intro,.photo{opacity:1;transform:none}.tl::before{height:100%}.tl-item::before{transform:none}}
 </style>
 </head>
 <body>
+<div class="progress" id="progress"></div>
+<button class="top" id="top" aria-label="Back to top">↑</button>
 
 <nav>
   <div class="wrap">
@@ -143,11 +211,11 @@
 <header class="hero">
   <div class="wrap">
     <div>
-      <p class="hello">Hello, I'm</p>
-      <h1>Ong Kai Peng</h1>
-      <p class="title"><span id="typed"></span><span class="cursor"></span></p>
-      <p class="lead">I'm a Cybersecurity &amp; Digital Forensics student at Republic Polytechnic, interested in Security Operations, Digital Forensics and Cloud Security, and I'm looking for an internship where I can put my skills to work.</p>
-      <div class="cta">
+      <p class="hello intro">Hello, I'm</p>
+      <h1 class="intro">Ong Kai Peng</h1>
+      <p class="title intro"><span id="typed"></span><span class="cursor"></span></p>
+      <p class="lead intro">I'm a Cybersecurity &amp; Digital Forensics student at Republic Polytechnic, interested in Security Operations, Digital Forensics and Cloud Security, and I'm looking for an internship where I can put my skills to work.</p>
+      <div class="cta intro">
         <a class="btn solid" href="resume.pdf" target="_blank" rel="noopener">View Resume</a>
         <a class="btn" href="https://www.linkedin.com/in/kaipengong" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn" href="#contact">Contact Me</a>
@@ -162,9 +230,9 @@
   <div class="wrap">
     <h2><span>&gt;</span> about</h2>
     <div class="about-text reveal">
-      <p>Hey there! I'm a cybersecurity student at Republic Polytechnic. I've worked hands-on with network security, vulnerability assessment, security monitoring and digital forensics in academic labs and projects, using tools like Nmap, Snort, OpenVAS, Metasploit and Talon ULTIMATE, along with AWS cloud services and Linux.</p>
-      <p>Before tech, I worked in hospitality, including service at a Michelin-starred restaurant during the Formula 1 Singapore Grand Prix and banquets at Shangri-La Singapore. Those jobs taught me to stay calm under pressure, pay attention to detail and communicate clearly with all kinds of people, which carries over to security work, where precision and composure matter.</p>
-      <p>Outside class, I'm a freelance photographer covering automotive showcases and luxury watch events. I'm also on the Student Council and working towards the NYAA Gold award.</p>
+      <p>Hey there! I'm a full-time student in the Diploma in Cybersecurity &amp; Digital Forensics at Republic Polytechnic. I've worked hands-on with network security, vulnerability assessment, security monitoring and digital forensics in academic labs and projects, using tools like Nmap, Snort, OpenVAS, Metasploit and Talon ULTIMATE, along with AWS cloud services and Linux.</p>
+      <p>Alongside my studies, I work part-time as a Sales Associate at Little Farms. I've also done part-time hospitality work at a Michelin-starred restaurant, including during the Formula 1 Singapore Grand Prix, and at banquets in Shangri-La Singapore. Balancing work and school has taught me to manage my time well, stay calm under pressure and communicate clearly with all kinds of people.</p>
+      <p>On the side, I run a freelance photography side hustle covering automotive showcases and luxury watch events. I'm also on the Student Council and working towards the NYAA Gold award.</p>
     </div>
     <div class="grid about-cards">
       <div class="card reveal">
@@ -184,7 +252,7 @@
       <div class="card reveal">
         <span class="ico">// beyond tech</span>
         <h3>Beyond Tech</h3>
-        <p>Freelance photographer since 2024, shooting automotive, lifestyle and corporate events.</p>
+        <p>Freelance photography side hustle since 2024, shooting automotive, lifestyle and corporate events.</p>
       </div>
       <div class="card reveal">
         <span class="ico">// currently pursuing</span>
@@ -263,6 +331,7 @@
         <h3>WHITEHACKS 2026 CTF Competition, SMU</h3>
         <p class="meta">2026</p>
         <p>Took part in Singapore Management University's Capture-The-Flag competition and worked through practical cybersecurity challenges.</p>
+        <a class="pdf-link" href="certs/whitehacks-2026.pdf" target="_blank" rel="noopener">View certificate ↗</a>
       </div>
       <div class="tl-item">
         <h3>CDDC 2026 — BrainHack: Beyond The Edge, DSTA</h3>
@@ -321,10 +390,11 @@
 <section id="experience">
   <div class="wrap">
     <h2><span>&gt;</span> experience</h2>
+    <p class="note reveal">Part-time roles and a side hustle, held alongside full-time studies.</p>
     <div class="tl reveal">
       <div class="tl-item">
         <h3>Freelance Photographer</h3>
-        <p class="meta"><span class="role">Self-Employed</span> | 2024 – Present</p>
+        <p class="meta"><span class="role">Self-Employed · Side Hustle</span> | 2024 – Present</p>
         <ul>
           <li>Photograph automotive showcases, lifestyle shoots, corporate events and luxury watch events for clients.</li>
           <li>Handle the full workflow: planning, shooting, photo selection and post-processing.</li>
@@ -332,14 +402,14 @@
       </div>
       <div class="tl-item">
         <h3>Little Farms</h3>
-        <p class="meta"><span class="role">Sales Associate</span> | 2023 – Present</p>
+        <p class="meta"><span class="role">Sales Associate · Part-time</span> | 2023 – Present</p>
         <ul>
           <li>Serve customers in a premium grocery and dining environment, help with product questions and handle point-of-sale transactions.</li>
         </ul>
       </div>
       <div class="tl-item">
         <h3>Restaurant JAG</h3>
-        <p class="meta"><span class="role">Fine Dining Service Crew</span> | 2024 – 2025</p>
+        <p class="meta"><span class="role">Fine Dining Service Crew · Part-time</span> | 2024 – 2025</p>
         <ul>
           <li>Provided table service in a Michelin-starred fine dining restaurant.</li>
           <li>Worked high-profile events including the Formula 1 Singapore Grand Prix 2024, a Longchamp private event, a Breitling corporate event and the STPI art showcase 2024.</li>
@@ -347,7 +417,7 @@
       </div>
       <div class="tl-item">
         <h3>Shangri-La Hotel Singapore</h3>
-        <p class="meta"><span class="role">Banquet Service Staff</span> | 2024 – 2025</p>
+        <p class="meta"><span class="role">Banquet Service Staff · Part-time</span> | 2024 – 2025</p>
         <ul>
           <li>Supported "Beyond 2025: The Changing World Order", a high-profile event hosted by Bank of Singapore.</li>
           <li>Worked banquet operations for weddings, corporate functions and large-scale events.</li>
@@ -355,7 +425,7 @@
       </div>
       <div class="tl-item">
         <h3>MOS Burger Singapore</h3>
-        <p class="meta"><span class="role">Part-Time Service Crew</span> | 2022</p>
+        <p class="meta"><span class="role">Service Crew · Part-time</span> | 2022</p>
         <ul><li>Took orders, prepared food and kept up cleanliness standards in a fast-paced restaurant.</li></ul>
       </div>
     </div>
@@ -374,15 +444,72 @@
 <section id="certifications">
   <div class="wrap">
     <h2><span>&gt;</span> certifications</h2>
-    <div class="grid">
-      <div class="card reveal cert"><div><h3>AWS Academy Graduate — Cloud Foundations</h3><p class="issuer">Amazon Web Services</p></div></div>
-      <div class="card reveal cert"><div><h3>Get Started with Linux Fundamentals (RH104 – RHA)</h3><p class="issuer">Red Hat</p></div></div>
-      <div class="card reveal cert"><div><h3>Networking Basics</h3><p class="issuer">Cisco Networking Academy</p></div></div>
-      <div class="card reveal cert"><div><h3>Computer Hardware Basics</h3><p class="issuer">Cisco Networking Academy</p></div></div>
-      <div class="card reveal cert"><div><h3>Certified Entry-Level Python Programmer (PCEP-30-02) Prep</h3><p class="issuer">LinkedIn Learning</p></div></div>
-      <div class="card reveal cert"><div><h3>Python Essential Training</h3><p class="issuer">LinkedIn Learning</p></div></div>
-      <div class="card reveal cert"><div><h3>JavaScript: Web Form Programming</h3><p class="issuer">LinkedIn Learning</p></div></div>
-      <div class="card reveal cert"><div><h3>Fundamentals of Sustainability and Technology</h3><p class="issuer">IBM</p></div></div>
+    <p class="note reveal">Click any certificate to open the PDF.</p>
+    <div class="grid cert-grid">
+      <div class="cert-card reveal">
+        <a class="cert-main" href="certs/redhat-linux-fundamentals.pdf" target="_blank" rel="noopener">
+          <span class="cert-date">Jul 2026</span>
+          <h3>Getting Started with Linux Fundamentals (RH104 – RHA) v9.1</h3>
+          <p class="issuer">Red Hat</p>
+          <span class="open">View certificate <span class="arr">↗</span></span>
+        </a><a class="verify" href="https://www.credly.com/badges/ad9c034d-7133-4da5-99b7-575ebdbaadb4" target="_blank" rel="noopener">Verify on Credly ↗</a>
+      </div>
+      <div class="cert-card reveal">
+        <a class="cert-main" href="certs/javascript-web-forms.pdf" target="_blank" rel="noopener">
+          <span class="cert-date">Jul 2026</span>
+          <h3>JavaScript: Web Form Programming</h3>
+          <p class="issuer">LinkedIn Learning</p>
+          <span class="open">View certificate <span class="arr">↗</span></span>
+        </a>
+      </div>
+      <div class="cert-card reveal">
+        <a class="cert-main" href="certs/aws-cloud-foundations.pdf" target="_blank" rel="noopener">
+          <span class="cert-date">Jul 2026</span>
+          <h3>AWS Academy Graduate — Cloud Foundations</h3>
+          <p class="issuer">Amazon Web Services</p>
+          <span class="open">View certificate <span class="arr">↗</span></span>
+        </a><a class="verify" href="https://www.credly.com/go/B8ShETsl" target="_blank" rel="noopener">Verify on Credly ↗</a>
+      </div>
+      <div class="cert-card reveal">
+        <a class="cert-main" href="certs/python-essential-training.pdf" target="_blank" rel="noopener">
+          <span class="cert-date">Dec 2025</span>
+          <h3>Python Essential Training</h3>
+          <p class="issuer">LinkedIn Learning</p>
+          <span class="open">View certificate <span class="arr">↗</span></span>
+        </a>
+      </div>
+      <div class="cert-card reveal">
+        <a class="cert-main" href="certs/cisco-networking-basics.pdf" target="_blank" rel="noopener">
+          <span class="cert-date">Aug 2025</span>
+          <h3>Networking Basics</h3>
+          <p class="issuer">Cisco Networking Academy</p>
+          <span class="open">View certificate <span class="arr">↗</span></span>
+        </a>
+      </div>
+      <div class="cert-card reveal">
+        <a class="cert-main" href="certs/pcep-python-cert-prep.pdf" target="_blank" rel="noopener">
+          <span class="cert-date">Jul 2025</span>
+          <h3>Certified Entry-Level Python Programmer (PCEP-30-02) Cert Prep</h3>
+          <p class="issuer">LinkedIn Learning</p>
+          <span class="open">View certificate <span class="arr">↗</span></span>
+        </a>
+      </div>
+      <div class="cert-card reveal">
+        <a class="cert-main" href="certs/cisco-computer-hardware-basics.pdf" target="_blank" rel="noopener">
+          <span class="cert-date">Jul 2025</span>
+          <h3>Computer Hardware Basics</h3>
+          <p class="issuer">Cisco Networking Academy</p>
+          <span class="open">View certificate <span class="arr">↗</span></span>
+        </a>
+      </div>
+      <div class="cert-card reveal">
+        <a class="cert-main" href="certs/ibm-sustainability-technology.pdf" target="_blank" rel="noopener">
+          <span class="cert-date">Jun 2025</span>
+          <h3>Fundamentals of Sustainability and Technology</h3>
+          <p class="issuer">IBM SkillsBuild</p>
+          <span class="open">View certificate <span class="arr">↗</span></span>
+        </a><a class="verify" href="https://www.credly.com/badges/f66fd0d3-3549-43bc-82d6-bb30df8a0ecb" target="_blank" rel="noopener">Verify on Credly ↗</a>
+      </div>
     </div>
   </div>
 </section>
@@ -415,6 +542,28 @@
     else if(i > 0){ i--; setTimeout(tick, 25); }
     else { del = false; r = (r + 1) % roles.length; setTimeout(tick, 300); }
   })();
+  // scroll progress, back-to-top, active nav
+  const bar=document.getElementById('progress'), topBtn=document.getElementById('top');
+  const links=[...document.querySelectorAll('nav ul a')], secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  function onScroll(){
+    const h=document.documentElement, max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';
+    topBtn.classList.toggle('show',h.scrollTop>600);
+    let cur=0; secs.forEach((s,i)=>{ if(s && s.getBoundingClientRect().top<140) cur=i; });
+    links.forEach((a,i)=>a.classList.toggle('active',i===cur && h.scrollTop>200));
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  topBtn.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+  // ripple on press
+  document.querySelectorAll('.btn').forEach(b=>b.addEventListener('pointerdown',e=>{
+    const r=b.getBoundingClientRect(), d=Math.max(r.width,r.height), s=document.createElement('span');
+    s.className='ripple'; s.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;
+    b.appendChild(s); setTimeout(()=>s.remove(),600);
+  }));
+  // stagger reveals within each grid
+  document.querySelectorAll('.grid').forEach(g=>[...g.children].forEach((c,i)=>c.style.setProperty('--d',(i%6)*0.08+'s')));
+  document.querySelectorAll('.edu').forEach((e,i)=>e.classList.add(i%2?'right':'left'));
+  document.querySelectorAll('.tl').forEach(t=>t.classList.add('reveal'));
   // reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } }), {threshold:.12});
   document.querySelectorAll('.reveal').forEach(n => io.observe(n));
