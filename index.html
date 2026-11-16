@@ -122,7 +122,7 @@
 
   /* ===== animations & interactions ===== */
   .progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:50;box-shadow:0 0 10px var(--accent)}
-  .note{color:var(--muted);font-size:14px;margin:-18px 0 24px}
+  .note{color:var(--muted);font-size:14px;margin:-10px 0 24px}
   /* hero intro */
   .hero .intro{opacity:0;transform:translateY(18px);animation:up .7s ease forwards}
   .hero .intro:nth-child(1){animation-delay:.05s}.hero .intro:nth-child(2){animation-delay:.15s}
@@ -185,6 +185,29 @@
   .top:hover{background:var(--accent);color:#06130d}
   .top:active{transform:scale(.9)}
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.hero .intro,.photo{opacity:1;transform:none}.tl::before{height:100%}.tl-item::before{transform:none}}
+
+  /* ===== collapsible sections ===== */
+  section{transition:padding .45s ease}
+  section.collapsed{padding:36px 0}
+  h2.toggle{cursor:pointer;user-select:none;display:block;width:fit-content;border-radius:8px;outline-offset:6px;transition:margin .45s ease}
+  #contact h2.toggle{margin-left:auto;margin-right:auto}
+  h2.toggle::after{transition:width .35s ease}
+  h2.toggle:hover::after{width:100%}
+  #contact h2.toggle::after{margin-left:auto;margin-right:auto}
+  h2.toggle:hover{color:var(--accent)}
+  h2.toggle:active{transform:scale(.98)}
+  .chev{display:inline-grid;vertical-align:middle;margin-left:12px;margin-top:-4px;place-items:center;width:30px;height:30px;border:1px solid var(--line);border-radius:7px;font-size:18px;line-height:1;color:var(--accent);transition:transform .35s ease,border-color .2s,background .2s}
+  h2.toggle:hover .chev{border-color:var(--accent);background:rgba(61,220,151,.08)}
+  section.collapsed .chev{transform:rotate(-90deg)}
+  section.collapsed h2.toggle{margin-bottom:0}
+  .sec-body{display:grid;grid-template-rows:1fr;opacity:1;transition:grid-template-rows .45s ease,opacity .35s ease}
+  .sec-inner{min-height:0;overflow:hidden;padding:10px;margin:-10px}
+  section.collapsed .sec-body{grid-template-rows:0fr;opacity:0}
+  .hint{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:22px}
+  .hint b{color:var(--accent);font-weight:400}
+  .allbtn{background:none;border:1px solid var(--line);color:var(--muted);font-family:var(--mono);font-size:12px;padding:4px 10px;border-radius:6px;cursor:pointer;margin-left:8px;transition:.15s}
+  .allbtn:hover{border-color:var(--accent);color:var(--accent)}
+  .allbtn:active{transform:scale(.95)}
 </style>
 </head>
 <body>
@@ -221,6 +244,7 @@
         <a class="btn" href="https://www.linkedin.com/in/kaipengong" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn" href="#contact">Contact Me</a>
       </div>
+      <p class="hint intro">tip: click any <b>&gt; section</b> heading to collapse it <button class="allbtn" id="allbtn" type="button">collapse all</button></p>
     </div>
     <div class="photo"><img src="profile.jpg" alt="Photo of Ong Kai Peng"></div>
   </div>
@@ -552,6 +576,35 @@
     else if(i > 0){ i--; setTimeout(tick, 25); }
     else { del = false; r = (r + 1) % roles.length; setTimeout(tick, 300); }
   })();
+  // collapsible sections
+  const secsAll=[...document.querySelectorAll('main section, body > section')];
+  secsAll.forEach(sec=>{
+    const wrap=sec.querySelector('.wrap'), h=wrap.querySelector('h2');
+    const body=document.createElement('div'), inner=document.createElement('div');
+    body.className='sec-body'; inner.className='sec-inner'; body.id=sec.id+'-body';
+    while(h.nextSibling) inner.appendChild(h.nextSibling);
+    body.appendChild(inner); wrap.appendChild(body);
+    const chev=document.createElement('span'); chev.className='chev'; chev.textContent='▾'; chev.setAttribute('aria-hidden','true');
+    h.appendChild(chev);
+    h.classList.add('toggle'); h.tabIndex=0; h.setAttribute('role','button');
+    h.setAttribute('aria-expanded','true'); h.setAttribute('aria-controls',body.id);
+    h.title='Click to collapse / expand';
+    const toggle=()=>{ const c=sec.classList.toggle('collapsed'); h.setAttribute('aria-expanded',String(!c)); h.title=c?'Click to expand':'Click to collapse'; updateAll(); };
+    h.addEventListener('click',toggle);
+    h.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); toggle(); } });
+  });
+  const allBtn=document.getElementById('allbtn');
+  function updateAll(){ allBtn.textContent = secsAll.every(s=>s.classList.contains('collapsed')) ? 'expand all' : 'collapse all'; }
+  allBtn.addEventListener('click',()=>{
+    const collapse = allBtn.textContent==='collapse all';
+    secsAll.forEach(s=>{ s.classList.toggle('collapsed',collapse); s.querySelector('h2').setAttribute('aria-expanded',String(!collapse)); });
+    updateAll();
+  });
+  // nav links open a collapsed section
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t && t.classList.contains('collapsed')){ t.classList.remove('collapsed'); t.querySelector('h2').setAttribute('aria-expanded','true'); updateAll(); }
+  }));
   // scroll progress, back-to-top, active nav
   const bar=document.getElementById('progress'), topBtn=document.getElementById('top');
   const links=[...document.querySelectorAll('nav ul a')], secs=links.map(a=>document.querySelector(a.getAttribute('href')));
