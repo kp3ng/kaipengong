@@ -173,6 +173,9 @@
   .verify{display:block;border-top:1px solid var(--line);padding:10px 22px;font-family:var(--mono);font-size:12px;color:var(--muted)}
   .verify:hover{color:var(--accent);text-decoration:none;background:var(--panel2)}
   .pdf-link{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:13px}
+  .badge-link{transition:.15s}
+  .badge-link:hover{text-decoration:none;background:rgba(61,220,151,.2);border-color:var(--accent);transform:translateY(-2px)}
+  .badge-link:active{transform:scale(.96)}
   /* nav active */
   nav ul a{position:relative}
   nav ul a.active{color:var(--accent)}
@@ -257,7 +260,7 @@
     <div class="about-text reveal">
       <p>Hey there! I'm a full-time student in the Diploma in Cybersecurity &amp; Digital Forensics at Republic Polytechnic. I've worked hands-on with network security, vulnerability assessment, security monitoring and digital forensics in academic labs and projects, using tools like Nmap, Snort, OpenVAS, Metasploit and Talon ULTIMATE, along with AWS cloud services and Linux.</p>
       <p>Alongside my studies, I work part-time as a Sales Associate at Little Farms. I've also done part-time hospitality work at a Michelin-starred restaurant, including during the Formula 1 Singapore Grand Prix, and at banquets in Shangri-La Singapore. Balancing work and school has taught me to manage my time well, stay calm under pressure and communicate clearly with all kinds of people.</p>
-      <p>On the side, I run a freelance photography side hustle covering automotive showcases and luxury watch events. I'm also on the Student Council and working towards the NYAA Gold award.</p>
+      <p>On the side, I run a freelance photography side hustle covering automotive showcases and luxury watch events. At school, I'm involved in Student Council and Photography, and I'm working towards the NYAA Gold award.</p>
     </div>
     <div class="grid about-cards">
       <div class="card reveal">
@@ -285,6 +288,7 @@
         <ul>
           <li>National Youth Achievement Award (Gold)</li>
           <li>Student Council, Republic Polytechnic</li>
+          <li>Photography, Republic Polytechnic</li>
         </ul>
       </div>
     </div>
@@ -305,8 +309,8 @@
         <span class="when">2025 – Present</span>
       </div>
       <div class="badges">
-        <span class="badge">Director's Roll of Honour AY2025 Sem 2</span>
-        <span class="badge">Edusave Certificate of Academic Achievement 2026</span>
+        <a class="badge badge-link" href="Director%20roll%20of%20honour%20ay2025%20sem2.pdf" target="_blank" rel="noopener">Director's Roll of Honour AY2025 Sem 2 ↗</a>
+        <a class="badge badge-link" href="Edusave%20Certificate%20of%20Academic%20Achievement.pdf" target="_blank" rel="noopener">Edusave Certificate of Academic Achievement 2026 ↗</a>
       </div>
       <p class="label">COURSEWORK</p>
       <div class="cw">
@@ -314,9 +318,10 @@
         <div><b>Forensics</b><span>Digital Forensics</span></div>
         <div><b>Cloud</b><span>Cloud Security</span></div>
       </div>
-      <p class="label">ACTIVITIES</p>
+      <p class="label">EXTRACURRICULAR ACTIVITIES</p>
       <div class="badges" style="margin-top:0">
         <span class="badge">Student Council</span>
+        <span class="badge">Photography</span>
         <span class="badge">NYAA Gold (in progress)</span>
       </div>
     </div>
@@ -340,8 +345,8 @@
         <span class="when">2020 – 2023</span>
       </div>
       <div class="badges">
-        <span class="badge">EAGLES Award 2023</span>
-        <span class="badge">Edusave Certificate of Academic Achievement 2021</span>
+        <a class="badge badge-link" href="EAGLES.pdf" target="_blank" rel="noopener">EAGLES Award 2023 ↗</a>
+        <a class="badge badge-link" href="Edusave%20Certificate%20of%20Academic%20Achievement%20HIHS.pdf" target="_blank" rel="noopener">Edusave Certificate of Academic Achievement 2021 ↗</a>
       </div>
     </div>
   </div>
@@ -376,11 +381,25 @@
         <h3>Director's Roll of Honour, Republic Polytechnic</h3>
         <p class="meta">AY2025 Semester 2</p>
         <p>Recognised for academic excellence in the Diploma in Cybersecurity &amp; Digital Forensics.</p>
+        <a class="pdf-link" href="Director%20roll%20of%20honour%20ay2025%20sem2.pdf" target="_blank" rel="noopener">View certificate ↗</a>
+      </div>
+      <div class="tl-item">
+        <h3>Edusave Certificate of Academic Achievement, Republic Polytechnic</h3>
+        <p class="meta">2026</p>
+        <p>Awarded for good academic performance and good conduct in the Diploma in Cybersecurity &amp; Digital Forensics.</p>
+        <a class="pdf-link" href="Edusave%20Certificate%20of%20Academic%20Achievement.pdf" target="_blank" rel="noopener">View certificate ↗</a>
       </div>
       <div class="tl-item">
         <h3>Edusave Award for Achievement, Good Leadership and Service (EAGLES)</h3>
-        <p class="meta">2023</p>
+        <p class="meta">2023 · Holy Innocents' High School</p>
         <p>Awarded for leadership, service to the community and school, and good conduct.</p>
+        <a class="pdf-link" href="EAGLES.pdf" target="_blank" rel="noopener">View certificate ↗</a>
+      </div>
+      <div class="tl-item">
+        <h3>Edusave Certificate of Academic Achievement, Holy Innocents' High School</h3>
+        <p class="meta">2021</p>
+        <p>Awarded for good academic performance and good conduct.</p>
+        <a class="pdf-link" href="Edusave%20Certificate%20of%20Academic%20Achievement%20HIHS.pdf" target="_blank" rel="noopener">View certificate ↗</a>
       </div>
     </div>
   </div>
@@ -433,6 +452,7 @@
           <li>Photograph automotive showcases, lifestyle shoots, corporate events and luxury watch events for clients.</li>
           <li>Handle the full workflow: planning, shooting, photo selection and post-processing.</li>
         </ul>
+        <a class="pdf-link" href="https://www.instagram.com/kp3ng.jpg/" target="_blank" rel="noopener">View my photography on Instagram ↗</a>
       </div>
       <div class="tl-item">
         <h3>Little Farms</h3>
